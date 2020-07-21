@@ -126,7 +126,7 @@ rect.hclust(modelCJ, k = 3, border = "grey50")
 
 # Análisis de Componentes principales ????
 plot(cbg$batallas, cbg$negociaciones, col = cbg$fecha,)
-tbl_comp_pr <- cbg %>% filter(fecha == "2020-07-06") %>%
+tbl_comp_pr <- cbg %>% filter(fecha == "2020-20-07") %>%
   select(!fecha) %>%
   gather(modo, resultados, negociaciones:batallas) %>%  # Agrupa Modos
   spread(jugador, resultados)                           # Tabula Jugadores
@@ -135,12 +135,22 @@ modelCompPr <- prcomp(tbl_comp_pr[, -1], center = TRUE,  scale = TRUE)  # Calcul
 cbg_aj <- cbg
 rownames(cbg_aj) <- paste(strftime(cbg$fecha, format = "%V"), cbg$jugador, sep = "")
 cbg_aj <- cbg_aj[,-c(1,2)]
-prcomp(cbg_aj, center = TRUE, scale = TRUE)
-plot(prcomp$x)
+compPrin <- prcomp(cbg_aj, center = TRUE, scale = TRUE)
+plot(compPrin$x)
 
 
 cbg %>% select(cbg$batallas)
 factor(cbg) <- NULL
 prcompCampaña <- prcomp(t(cbg[,-1]), scale = TRUE)
 
-
+# Análisis por jugador
+cbg %>% 
+  filter(jugador == "ssevillano") %>%
+  summarise(promedio =  mean(batallas),
+            desvEst = sd(batallas))
+  group_by(jugador) %>% 
+serieJugador <- cbg %>% 
+    filter(jugador == "ssevillano") %>% 
+    mutate( serie = row_number()) %>% 
+    select(serie, batallas)
+lm(serieJugador$batallas ~ serieJugador$serie)  
