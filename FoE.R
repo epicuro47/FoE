@@ -154,3 +154,15 @@ serieJugador <- cbg %>%
     mutate( serie = row_number()) %>% 
     select(serie, batallas)
 lm(serieJugador$batallas ~ serieJugador$serie)  
+
+
+fjugador <- cbg %>% filter(jugador =="Faik") 
+fjugador<- fjugador %>% mutate(semana = seq_along(fecha))
+View(fjugador)
+mean(fjugador$batallas)
+lm(batallas ~ semana, fjugador)
+predict(lm(batallas ~ semana, fjugador), newdata = data.frame(
+  semana = length(campañas) + 1), interval = "prediction" )
+
+predict(lm(batallas ~ semana, fjugador), newdata = data.frame(
+  semana = length(campañas) + 1), interval = "prediction" )

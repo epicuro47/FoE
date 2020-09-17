@@ -23,6 +23,125 @@ resumen <- function(df, liga = "diamante"){
     #  invisible(df)
     resultados
 }  
+
+## CBG 10 ----
+clasificacion12 <- data.frame(fecha = as.Date("14/09/2020", format = "%d/%m/%Y"),
+                              posicion = 1,
+                              participantes = 6,
+                              puntuacion = 340773,
+                              liga = "Diamante"
+                              )
+cbg12 <- data.frame(fecha = rep(as.Date("14/09/2020", format = "%d/%m/%Y"), 35),
+                    jugador = as.factor(c("emiliolt", "Madrada", "Richikev16",  "ssevillano", 
+                                          "Manza1510", "Uwe Albert", "Nefertai158", "RamesesII", 
+                                          "rapegi1858", "jefferson ospina", "YaraPedrani", 
+                                          "Matilda la guapa", "MLAHOZM", "PasQ", "cabma", 
+                                          "scorpio82", "Octavia 277 la Benevola", 
+                                          "Juan Skott","Rodrigo 112 el Blanco", 
+                                          "Fulvia 179 la Blanca", "Fer el tigre", "Josechan", 
+                                          "Racso ek Intrepido", "Libertiana", 
+                                          "Epicuro el Invencible", "Lucila 165 la Fuerte", 
+                                          "hidalgo la Grande", "diegosgm", "gapbrielle", 
+                                          "espysg", "mgara", "Chicho73", "Honoria 246 la Grande",
+                                          "k3k02k13", "Faik"
+                                          )
+                                        ),
+                    negociaciones = c(0, 77, 0, 103, 3, 0, 23, 0, 71, 68, 55, 59, 22, 0, 0, 64, 16,
+                                      88, 0, 15, 0, 15, 11, 10, 24, 0, 28, 0, 0, 14, 38, 0, 0, 10,
+                                      0),
+                    batallas = c(1028, 821, 958, 698, 810, 812, 750, 795, 605, 576, 495, 441, 478,
+                                 521, 504, 362, 415, 258, 414, 364, 351, 305, 287, 269, 236, 284,
+                                 217, 232, 190, 110, 44, 100, 83, 55, 0)
+                    )
+
+clasificacion11 <- data.frame(fecha = as.Date("31/08/2020", format = "%d/%m/%Y"),
+                              posicion = 5,
+                              participantes = 6,
+                              puntuacion = 120992,
+                              liga = "Diamante")
+
+cbg11 <- data.frame(fecha = rep(as.Date("31/08/2020", format = "%d/%m/%Y"), 37),
+                     jugador = as.factor(c("Belino 140 el Inflexible", "Uwe Albert", "emiliolt",
+                                           "Madrada", "Nefertai158", "jefferson ospina", 
+                                           "Richikev16", "Manza1510", "Faik", "cabma", "rapegi1858",
+                                           "ssevillano", "tessme", "Racso el intrepido", 
+                                           "MLAHOZM", "RamesesII", "PasQ", "Fer el tigre", 
+                                           "Matilda la guapa", "YaraPedrani", 
+                                           "Octavia 277 la Benevola", "Fulvia 179 la Blanca", 
+                                           "Rodrigo 112 el Blanco", "Juan Skott", "scorpio82", 
+                                           "mgara", "gapbrielle", "Libertiana", 
+                                           "Epicuro el Invencible", "Josechan", "Chicho73", 
+                                           "diegosgm", "Lucila 165 la Fuerte", "hidalgo la Grande",
+                                           "k3k02k13", "espysg", "Honoria 246 la Grande"
+                                           )
+                                         ),
+                     negociaciones = c(27, 149, 43, 125, 84, 137, 134, 84, 112, 66, 111, 88, 121,
+                                       71, 31, 38, 80, 141, 79, 77, 22, 79, 38, 84, 29, 112, 38,
+                                       67, 53, 25, 3, 0, 11, 14, 18, 7, 40
+                                       ),
+                     batallas = c(1400, 1026, 1212, 1021, 1006, 807, 786, 870, 798, 875, 733, 689,
+                                  623, 661, 740, 661, 540, 410, 499, 476, 530, 386, 463, 368, 461,
+                                  214, 319, 253, 278, 318, 349, 346, 307, 266, 185, 180, 85
+                                  )
+                     )
+clasificacion10 <- data.frame(fecha = as.Date("17/08/2020", format = "%d/%m/%Y"),
+                              posicion = 3,
+                              participantes = 7,
+                              puntuacion = 122707,
+                              liga = "Diamante")
+cbg10 <- data.frame(fecha = rep(as.Date("17/08/2020", format = "%d/%m/%Y"), 36),
+                    jugador = as.factor(c("Belino 140 el Inflexible", "emiliolt", "Madrada",
+                                          "cabma", "jefferson ospina", "Nefertai158", "Uwe Albert",
+                                          "RamesesII", "Richikev16", "rapegi1858", "ssevillano", 
+                                          "Racso el intrepido", "Manza1510", "Faik", 
+                                          "Octavia 277 la Benevola", "Fer el tigre", "Juan Skott",
+                                          "Chicho73", "MLAHOZM", "Rodrigo 112 el Blanco",
+                                          "YaraPedrani", "scorpio82", "Matilda la guapa",
+                                          "PasQ", "Severo 68 el Audaz", "Epicuro el Invencible",
+                                          "Fulvia 179 la Blanca", "Libertiana", "gapbrielle", 
+                                          "Lucila 165 la Fuerte", "Josechan", "hidalgo la Grande",
+                                          "diegosgm", "k3k02k13", "espysg", "Honoria 246 la Grande"
+                                          )
+                                        ),
+                    negociaciones = c(56, 87, 123, 33, 130, 68, 68, 53, 103, 52, 72, 38, 48, 44, 57,
+                                      165, 109, 60, 0, 47, 22, 0, 40, 11, 38, 33, 14, 35, 39, 9, 12,
+                                      0, 0, 31, 4, 24),
+                    batallas = c(1334, 1192, 1039, 1072, 781, 895, 878, 824, 713, 807, 752, 751, 724,
+                                 662, 563, 320, 347, 427, 519, 412, 451, 459, 355, 411, 351, 351, 372,
+                                 323, 274, 332, 325, 263, 244, 118, 139, 63)
+                    )    
+
+## CBG 9 ----
+clasificacion9 <- data.frame(fecha =as.Date("03/08/2020", format = "%d/%m/%Y"),
+                             posicion = 2,
+                             participantes = 7,
+                             puntuacion = 166338,
+                             liga = "Diamante")
+cbg9 <- data.frame(fecha = rep(as.Date("03/08/2020", format = "%d/%m/%Y"), 37),
+                   jugador = as.factor(c("Belino 140 el Inflexible", "Madrada", "emiliolt", 
+                                         "Faik", "cabma", "Nefertai158", "jefferson ospina", 
+                                         "Manza1510", "Richikev16", "Uwe Albert", "RamesesII", 
+                                         "rapegi1858", "Epicuro el Invencible", "ssevillano", 
+                                         "Octavia 277 la Benevola", "Juan Skott", 
+                                         "Fulvia 179 la Blanca", "YaraPedrani", "PasQ", "MLAHOZM",
+                                         "AmoTodoPoderoso", "Chicho73", "Severo 68 el Audaz",
+                                         "Fer el tigre", "scorpio82", "Matilda la guapa",
+                                         "Rodrigo 112 el Blanco", "diegosgm", 
+                                         "Lucila 165 la Fuerte", "gapbrielle", "hidalgo la Grande", 
+                                         "Josechan", "Libertiana", "espysg", 
+                                         "Honoria 246 la Grande", "00tyler durden00", "k3k02k13"
+                                         )
+                                       ),
+                   negociaciones = c(32, 69, 60, 166, 14, 59, 100, 119, 127, 59, 10, 63, 63, 78,
+                                     33, 110, 100, 160, 0, 15, 5, 57, 4, 113, 9, 42, 23, 18, 28,
+                                     14, 6, 13, 1, 0, 32, 0, 10
+                                     ),
+                   batallas = c(1507, 1119, 1106, 891, 1180, 1000, 850, 804, 766, 840, 861,  642,
+                                641, 607, 690, 452, 408, 260, 571, 540, 522, 415, 515, 275, 476,
+                                385, 357, 361, 304, 303, 298, 242, 222, 190, 83, 102, 53
+                                )
+                   )
+
 ## CBG 8 ----
 clasificacion8 <- data.frame(fecha =as.Date("20/07/2020", format = "%d/%m/%Y"),
                              posicion = 1,
@@ -212,11 +331,11 @@ load(file = "./data/datos.RData")
 ## Clasificación
 library(tools)
 # clasificacion <- rbind(clasificacion5, clasificacion6, clasificacion7)
-clasificacion <- rbind(clasificacion, clasificacion8)
+clasificacion <- rbind(clasificacion, clasificacion12)
 # clasificacion$liga <- toTitleCase(as.character(tClasif$liga))
 
 ### cbg <- rbind(cbg3, cbg4, cbg5, cbg6)
-cbg <- rbind(cbg, cbg8)
+cbg <- rbind(cbg, cbg12)
 
 tbl_resumen <- resumen(cbg)
 campañas <- cbg %>% distinct(fecha)

@@ -1,10 +1,16 @@
 #
 # Tablero de control de Campañas
 #
-
 library(shiny)
 library(shinydashboard)
 library(shinythemes)
+library(dplyr)
+
+load(file = "./data/datos.RData")
+jugadores <- cbg %>% filter(fecha == max(campañas)) %>% select(jugador) %>% arrange(jugador)
+
+
+
 
 # Define UI for application that draws a histogram
 shinyUI(
@@ -59,10 +65,29 @@ shinyUI(
                         h3("Clasificación"),
                         tableOutput("tblClasificacion")
                         ),
-                tabItem(tabName = "individual")
-            ),
-
-        )
+                tabItem(tabName = "individual",
+                        selectInput("jugador", "Jugadores:", choices = jugadores),
+                        fluidRow(h3("Estadística del último Campo"), tableOutput("tblEst")),
+#                        fluidRow(
+#                            box(tableOutput("valMaxBat")),
+#                            box(tableOutput("valMaxNeg"))
+#                        ),
+#                        fluidRow(
+#                            box(tableOutput("valPromBat")),
+#                            box(tableOutput("valPromNeg"))
+#                        ),
+                        fluidRow(
+                            h3("Batallas por Jugador vs Promedio del Gremio"),
+                            plotOutput("plotBat")
+                        ),
+                        fluidRow(
+                            tags$hr(),
+                            h4("Pronóstico para la siguiente campaña"),
+                            tableOutput("tblPronostico")
+                        )
+                )
+            )
+        ) # dashboardBody
 #        fluidPage(
     
     # Tema

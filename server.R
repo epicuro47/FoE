@@ -54,11 +54,43 @@ tClasif <- clasificacion %>% arrange(desc(fecha))
 tClasif$fecha <- as.character(tClasif$fecha)
 colnames(tClasif) <- c("Fecha", "Posicion", "Participantes", "Puntuacion", "Liga")
 
+# Análisis por jugador
+#jugadores <- cbg %>% filter(fecha == max(campañas)) %>% select(jugador) %>% arrange(jugador)
+    
+tResJugador <- cbg %>% 
+    group_by(jugador) %>%
+    summarize("Máximo Batallas" = max(batallas),
+              "Media Batallas" = round(mean(batallas)),
+              "DesvEst. Batallas" = round(sd(batallas)),
+              "Máximo Negociaciones" = max(negociaciones),
+              "Media Negociaciones" = round(mean(negociaciones)),
+              "DesvEst. Negociaciones" = sd(negociaciones)
+              )
+
+# Función análisis individual ----
+playerFunc <- function(player) {
+    ## Modelo lineal en Filtro de Jugador
+    fit1 = cbg %>% filter(jugador == player) %>% select(-jugador) %>% mutate(semana = seq_along(fecha)) %>% lm(batallas ~ fecha, data = .)
+
+        ## Vector Secuencia de fechas en data frame final
+    pronostico = data.frame(fecha = seq(from = as.Date(min(fit1[["model"]][, 2])), to = as.Date(max(fit1[["model"]][, 2]) + 14), by = 14))
+
+    ## Integra Datos de pronóstico (fecha, datos históricos, pronósticos, intervalo)
+    pronostico = cbind(pronostico, rbind(fit1$model[1], NA), apply(predict(fit1, pronostico, interval = "prediction", level = 0.8), 2, as.integer))
+
+    ## No negativos en intervalo inferior
+    pronostico[which(pronostico$lwr < 0), "lwr"] <- 0
+
+    ## Renombra vector de pronósticos
+    names(pronostico)[3] <- "tendencia"
+    return(pronostico)
+    }
 
 library(shiny)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
+# Funciones Análisis General
     output$BoxMVP <- renderValueBox(valueBox(tMVP$total,
                                              paste0("MVP de la Campaña: ", tMVP$Jugador),
                                              icon = icon("medal")))
@@ -80,4 +112,43 @@ shinyServer(function(input, output) {
                                            digits = 0)
     output$plotClasif <- renderPlot({pClasif})
     output$plotPunt <- renderPlot({pPunt})
+
+    output$tblEst <- renderTable(tResJugador[tResJugador$jugador == input$jugador, -1],
+                                 digits = 0,
+                                 striped = TRUE ,
+                                 bordered = TRUE)
+    output$valMaxBat <- renderValueBox(valueBox(tResJugador[tResJugador$jugador == input$jugador,
+                                                            "max_batallas"],
+                                                "Máximo de Batallas"))
+    output$valMaxNeg <- renderValueBox(valueBox(tResJugador[tResJugador$jugador == input$jugador,
+                                                            "max_negociaciones"],
+                                                 "Máximo de Negociaciones"))
+    output$valPromBat <- renderValueBox(valueBox(tResJugador[tResJugador$jugador == input$jugador,
+                                                             "prom_batallas"],
+                                                 "Promedio de Batallas"))
+    output$valPromNeg <- renderValueBox(valueBox(tResJugador[tResJugador$jugador == input$jugador,
+                                                             "prom_negociaciones"],
+                                                 "Promedio de Negociaciones"))
+
+## Análisis Gráfico de desempeño individual
+    output$plotBat <- renderPlot({tLMxJug = playerFunc(input$jugador) 
+
+                                tLMxJug %>%
+                                     ggplot(aes(x = fecha, y = batallas)) +
+                                     geom_ribbon(aes(ymin = lwr, ymax = upr), fill = "grey80") +
+                                     geom_line() +
+                                     geom_point(aes(x = fecha, y = tendencia))
+                                 }
+                                 )
+
+## Tabla de datos de pronóstico
+    output$tblPronostico <- renderTable({tLMxJug = playerFunc(input$jugador)
+    tLM <- tLMxJug %>% 
+            filter(fecha == max(fecha)) %>% 
+            mutate(Fecha = as.character(as.Date(fecha))) %>% 
+            select(Fecha, tendencia, lwr, upr) %>% 
+            rename('Pronóstico' = tendencia, 'Límite Inferior' = lwr, 'Límite Superior' = upr)
+                            #        
+    return(tLM)
+    })
 })
