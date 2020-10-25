@@ -166,3 +166,66 @@ predict(lm(batallas ~ semana, fjugador), newdata = data.frame(
 
 predict(lm(batallas ~ semana, fjugador), newdata = data.frame(
   semana = length(campañas) + 1), interval = "prediction" )
+
+# Ranking de Jugadores
+jugActivos <- cbg %>%
+  filter(fecha == max(campañas)) %>% 
+  select(jugador) %>% 
+  arrange(jugador) %>% pull()
+cbg %>% 
+  group_by(jugador) %>%   
+  filter(jugador %in% jugActivos[[1]]) %>% 
+  select(jugador, batallas, negociaciones) %>% 
+  summarise(batAvg = mean(batallas),
+            negAvg = mean(negociaciones)) %>% 
+  mutate(batRank = n() - rank(batAvg, ties.method = "min") + 1,
+         negRank = n() - rank(negAvg, ties.method = "min") + 1,
+         n = n()) %>% 
+  arrange(desc(batAvg)) %>% 
+  ungroup()
+
+# Ranking de jugadores activos ----
+rankFunc <- function(player, tipo = "batallas", campaña = max(campañas)){
+  jugActivos <- cbg %>%
+    filter(fecha == campaña) %>% 
+    select(jugador) %>% 
+    arrange(jugador) %>% pull()
+  
+  rankings <- cbg %>%
+    group_by(jugador) %>%   
+    filter(jugador %in% jugActivos) %>% 
+    select(jugador, batallas, negociaciones) %>% 
+    summarise(batAvg = mean(batallas),
+              negAvg = mean(negociaciones)) %>% 
+    mutate(batRank = n() - rank(batAvg, ties.method = "min") + 1,
+           negRank = n() - rank(negAvg, ties.method = "min") + 1,
+           n = n()) %>% 
+    arrange(desc(batAvg)) %>% 
+    ungroup()
+  return(rankings %>% filter(jugador == player))
+}
+
+# Gráfico evolución por jugador
+cbg %>% filter(jugador == "Faik") %>% select(-jugador) %>% 
+  ggplot(aes(x = negociaciones, y = batallas)) +
+  geom_point() +
+  geom_path(arrow = arrow(angle = 15, length = unit(3, "mm"),
+                          ends = "last", type = "closed"),
+            show.legend = ) +
+ # geom_text(aes(x = negociaciones + 28, y = batallas + 25, label = fecha)) +
+  ggrepel::geom_text_repel(aes(x = negociaciones,
+                               y = batallas, 
+                               label = as.character(fecha)),
+                           nudge_y = 20)
+
+
+# Jugadores en Máximo
+cbg %>% group_by(jugador) %>% 
+  summarise(max = max(batallas),
+            ult = f)
+# Jugadores inactivos
+inactFun <- function(fecha, tipo){
+  cbg %>% filter(fecha == max(lst_campos), batallas == 0) %>% count()
+  }
+
+cbg %>% group_by(fecha, jugador) %>% filter(n() == 0)
