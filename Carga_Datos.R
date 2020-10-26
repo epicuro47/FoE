@@ -1,19 +1,51 @@
 # Registro de datos de campañas
 library(dplyr)
-## CBG 12 ----
+## CBG 2 ----
+clasificacion2 <- data.frame(fecha = as.Date("26/10/2020", format = "%d/%m/%Y"),
+                             posicion = 4,
+                             participantes = 8,
+                             puntuacion = 100028,
+                             liga = "Diamante"
+                             )
+cbg2 <- data.frame(
+    fecha = rep(as.Date("26/10/2020", format = "%d/%m/%Y"), 78),
+    jugador = c("sanfeliz", "Hipatia Alejandria", "Dary jackson", "charlis orbe", "sicario 82", "DonPitusu",
+                "Queen Arien", "La teoria del kaos", "Lokmes", "joanan the best", "adrianrcav19", "benearo",
+                "frexul", "Tyrion el borracho", "Tomachu79", "HARPIA", "Ksuto", "xHelikex", "ec250", 
+                "Jr11Jr11", "chinpaiun",  "Axturi4x", "Fulvia 102 la Gloriosa", "Ombu", "Cora", 
+                "LoyalKaiHansen", "Cirilo 106 el Sabio", "Aitajav", "Leoncio 148 el Glorioso", 
+                "Epicuro el Invencible", "I have a dream", "Jonas5", "YNTRUDER", "ELPERUANO999", 
+                "SirPoundALot", "Damiem", "mazdacx5", "aalyn", "almerileo", "Tea 85 la Fuerte", "carlomonx",
+                "Hanfrix", "Diego Le Grand", "messilandiauno", "Iris 104 la Blanca", "carla.26", "Kavi",
+                "samukor123", "pascaltrail", "Selkita", "Jorge2189", "HardDeath",  "pezhammer", 
+                "Txiki la grande", "Toni Demoni", "Hecatom Legna", "Alonso el Leon", "Sirius13",  "1959marti",
+                "Jose el odiado", "pink pixie", "renelolana", "adioruiz", "joaquinjvv", "cyrus", "Entarl", 
+                "Asura1", "DeAlmu", "navarra", "Rcm 1981 el Osado", "mirohvr", "Aanaabeel", "ManuMartin", 
+                "mazo381", "Paco x el grañes", "Urihon Legacy",  "Baldrickac76", "JCEE5433"),
+    negociaciones = c(4, 105, 0, 55, 126, 64, 165, 0, 109, 72, 79, 149, 0, 68, 197, 26, 36, 40, 32, 76, 21, 0,
+                      72, 0, 0, 62, 0, 29, 54, 78, 0, 10, 9, 58, 0, 1, 66, 20, 99, 23, 49, 0, 0, 0, 0, 18, 152,
+                      0, 90, 0, 3, 0, 0, 122, 1, 16, 26, 2, 6, 46, 0, 0, 0, 2, 49, 0, 7, 3, 0, 0, 7, 7, 1, 1, 
+                      0, 50, 4, 0),
+    batallas = c(1586, 1119, 1300, 955, 775, 855, 634, 958, 714, 781, 760, 589, 841, 679, 414, 745, 706, 650,
+                 579, 467, 570, 609, 441, 580, 552, 428, 516, 443, 390, 330, 483, 456, 450, 341, 455, 450, 319,
+                 394, 234, 384, 284, 380, 378, 358, 340, 300, 17, 321, 124, 301, 265, 265, 257, 11, 245, 204,
+                 176, 224, 214, 134, 224, 210, 191, 183, 78, 154, 133, 123, 119, 118, 101, 95, 104, 104, 100,
+                 0, 70, 15)
+)
 clasificacion1 <- data.frame(fecha = as.Date("12/10/2020", format = "%d/%m/%Y"),
-                            posicion = 2,
+                             posicion = 2,
                             participantes = 8,
                             puntuacion = 166069,
                             liga = "Diamante"
-)
+                            )
+## CBG 1 ----
 cbg1 <- data.frame(
     fecha = rep(as.Date("12/10/2020", format = "%d/%m/%Y"), 76),
     jugador = c("charlis orbe", "sanfeliz", "Hipatia Alejandria", "HARPIA", "DonPitusu", "Dary jackson",
                 "La teoria del kaos", "ec250", "adrianrcav19", "Lokmes", "joanan the best", "Queen Arien",
                 "Tyrion el borracho", "xHelikex", "Tomachu79", "chinpaiun", "LoyalKaiHansen", "Ombu",
                 "Ksuto", "frexul", "Cora", "SirPoundALot", "Diego Le Grand", "I have a dream", "Axturi4x",
-                "sicario 82", "Tea 85 la Fuerte", "Aitajav",  "Fulvia 102 la Gloriosa", "Jr11Jr11",  
+                "sicario 82", "Tea 85 la Fuerte", "Aitajav", "Fulvia 102 la Gloriosa", "Jr11Jr11",  
                 "Hanfrix", "carlomonx", "ELPERUANO999", "Alonso el Leon", "Kavi", "YNTRUDER", 
                 "Cirilo 106 el Sabio", "aalyn", "messilandiauno", "Epicuro el Invencible", "carla.26",
                 "Leoncio 148 el Glorioso", "Jorge2189", "Jonas5", "Iris 104 la Blanca", "Toni Demoni",
@@ -75,10 +107,10 @@ cbg <- data.frame(fecha = rep(as.Date("28/09/2020", format = "%d/%m/%Y"), 73),
 load(file = "./data/datos.RData")
 
 ## Clasificación
-clasificacion <- rbind(clasificacion, clasificacion1)
+clasificacion <- rbind(clasificacion, clasificacion2)
 
 ### cbg <- rbind(cbg3, cbg4, cbg5, cbg6)
-cbg <- rbind(cbg, cbg1)
+cbg <- rbind(cbg, cbg2)
 
 tbl_resumen <- resumen(cbg)
 lst_campos <- cbg %>% distinct(fecha)
