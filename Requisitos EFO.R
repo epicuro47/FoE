@@ -32,6 +32,14 @@ bieEdad
 bieEsp <- df %>% filter(EDAD == "ESP") %>% group_by(TIPO) %>% summarise(TOTAL = sum(BIENES))
 bieEsp
 
+df %>% 
+    arrange(EDAD) %>% 
+    pivot_wider(names_from = EDAD, 
+                values_from = BIENES, 
+                values_fill = 0, 
+                values_fn = sum) %>% 
+    View()
+
 
 recursos <- c("BIENES1", "EDAD1", "TIPO1", "BIENES2", "EDAD2", "TIPO2", "BIENES2")
 columnas <- c("BIENES", "EDAD", "TIPO")
@@ -40,5 +48,4 @@ invRaw %>% select(Tecnología, starts_with(columnas))
 invRaw %>% 
     pivot_longer(cols = c(2, 3, 4, 5, 8, 11, 14), names_to = "RECURSO", values_to = "TOTAL") %>% 
     filter(TOTAL != c(NA, 0)) %>% 
-    pivot_longer()
     View()
