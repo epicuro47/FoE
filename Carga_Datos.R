@@ -1,5 +1,38 @@
 # Registro de datos de campañas
 library(dplyr)
+## CBG 3 ----
+clasificacion3 <- data.frame(fecha = as.Date("09/11/2020", format = "%d/%m/%Y"),
+                             posicion = 4,
+                             participantes = 8,
+                             puntuacion = 105895,
+                             liga = "Diamante"
+                             )
+cbg3 <- data.frame(
+    fecha = rep(as.Date("09/11/2020", format = "%d/%m/%Y"), 80),
+    jugador = c("sanfeliz", "Hipatia Alejandria", "charlis orbe", "benearo", "frexul", "joanan the best",
+                "La teoria del kaos", "adrianrcav19", "DonPitusu", "LoyalKaiHansen", "Lokmes", "ec250", 
+                "Tyrion el borracho", "Tomachu79", "sicario 82", "Ombu", "HARPIA", "Ksuto", "xHelikex", 
+                "Dary jackson", "SirPoundALot", "Hanfrix", "Leoncio 148 el Glorioso", "chinpaiun", "Cora", 
+                "Axturi4x", "I have a dream", "YNTRUDER", "carlomonx", "Aitajav", "ELPERUANO999", 
+                "aalyn", "mazdacx5", "Fulvia 102 la Gloriosa", "Epicuro el Invencible", "Tea 85 la Fuerte",
+                "Jr11Jr11", "messilandiauno", "carla.26", "Jonas5", "Queen Arien", "Iris 104 la Blanca",
+                "Damiem", "pink pixie", "Toni Demoni", "Kavi",  "almerileo", "Diego Le Grand", "1959marti",
+                "Jorge2189", "samukor123", "pascaltrail", "renelolana", "Selkita", "joaquinjvv", "adioruiz", 
+                "Entarl", "pezhammer", "Rcm 1981 el Osado", "Sirius13", "Asura1", "DeAlmu", "Jose el odiado", 
+                "Baldrickac76", "Cirilo 106 el Sabio", "Alonso el Leon", "Paco x el grañes", "Belegost", 
+                "mazo381", "Aanaabeel", "Hecatom Legna", "cyrus", "navarra", "Pipo1962", "HardDeath",
+                "JCEE5433", "Urihon Legacy", "ManuMartin", "mirohvr", "Txiki la grande"),
+    negociaciones = c(91, 180, 72, 260, 0, 79, 48, 100, 63, 139, 96, 32, 81, 205, 72, 0, 35, 97, 41, 0, 6,
+                      0, 141, 51, 5, 0, 6, 37, 61, 80, 69, 13, 56, 37, 85, 24, 10, 0, 54, 6, 63, 19, 0, 0, 
+                      11, 180, 52, 0, 35, 11, 0, 73, 0, 0, 8, 0, 5, 0, 5, 19, 9, 32, 40, 19, 3, 0, 0, 33,
+                      0, 21, 9, 10, 0, 54, 0, 0, 50, 0, 0, 3),
+    batallas = c(1402, 1161, 1341, 719, 1141, 952, 1010, 891, 945, 781, 831, 938, 826, 572, 793, 925, 842,
+                 672, 783, 796, 717, 687, 394, 557, 611, 618, 605, 529, 452, 389, 411, 496, 402, 425, 318,
+                 437, 457, 467, 355, 432, 302, 389, 424, 402, 354, 0, 250, 350, 268, 312, 310, 149, 289,
+                 278, 251, 252, 232, 238, 224, 189, 204, 155, 138, 178, 209, 202, 173, 104, 159, 111, 128,
+                 123, 136, 16, 118, 102, 1, 13, 13, 2)
+    )
+
 ## CBG 2 ----
 clasificacion2 <- data.frame(fecha = as.Date("26/10/2020", format = "%d/%m/%Y"),
                              posicion = 4,
@@ -18,10 +51,10 @@ cbg2 <- data.frame(
                 "SirPoundALot", "Damiem", "mazdacx5", "aalyn", "almerileo", "Tea 85 la Fuerte", "carlomonx",
                 "Hanfrix", "Diego Le Grand", "messilandiauno", "Iris 104 la Blanca", "carla.26", "Kavi",
                 "samukor123", "pascaltrail", "Selkita", "Jorge2189", "HardDeath",  "pezhammer", 
-                "Txiki la grande", "Toni Demoni", "Hecatom Legna", "Alonso el Leon", "Sirius13",  "1959marti",
+                "Txiki la grande", "Toni Demoni", "Hecatom Legna", "Alonso el Leon", "Sirius13", "1959marti",
                 "Jose el odiado", "pink pixie", "renelolana", "adioruiz", "joaquinjvv", "cyrus", "Entarl", 
                 "Asura1", "DeAlmu", "navarra", "Rcm 1981 el Osado", "mirohvr", "Aanaabeel", "ManuMartin", 
-                "mazo381", "Paco x el grañes", "Urihon Legacy",  "Baldrickac76", "JCEE5433"),
+                "mazo381", "Paco x el grañes", "Urihon Legacy", "Baldrickac76", "JCEE5433"),
     negociaciones = c(4, 105, 0, 55, 126, 64, 165, 0, 109, 72, 79, 149, 0, 68, 197, 26, 36, 40, 32, 76, 21, 0,
                       72, 0, 0, 62, 0, 29, 54, 78, 0, 10, 9, 58, 0, 1, 66, 20, 99, 23, 49, 0, 0, 0, 0, 18, 152,
                       0, 90, 0, 3, 0, 0, 122, 1, 16, 26, 2, 6, 46, 0, 0, 0, 2, 49, 0, 7, 3, 0, 0, 7, 7, 1, 1, 
@@ -101,26 +134,6 @@ cbg <- data.frame(fecha = rep(as.Date("28/09/2020", format = "%d/%m/%Y"), 73),
                                 16, 0)
                    )
 
-
-
-## Integración de datos ----
-load(file = "./data/datos.RData")
-
-## Clasificación
-clasificacion <- rbind(clasificacion, clasificacion2)
-
-### cbg <- rbind(cbg3, cbg4, cbg5, cbg6)
-cbg <- rbind(cbg, cbg2)
-
-tbl_resumen <- resumen(cbg)
-lst_campos <- cbg %>% distinct(fecha)
-lst_campos <- as.Date(lst_campos[, 1], format="%d/%m/%Y")
-save(cbg, tbl_resumen, clasificacion, lst_campos, file = "./data/datos.RData")
-
-View(cbg)
-View(tbl_resumen)
-
-
 ## Función Resumen de campaña
 resumen <- function(df, liga = "diamante"){
     ifelse(require(dplyr) == TRUE, "Librería 'dplyr' Cargada", require(dplyr))
@@ -144,3 +157,20 @@ resumen <- function(df, liga = "diamante"){
     #  invisible(df)
     return(resultados)
 }  
+
+## Integración de datos ----
+load(file = "./data/datos.RData")
+
+## Clasificación
+clasificacion <- rbind(clasificacion, clasificacion3)
+
+### cbg <- rbind(cbg3, cbg4, cbg5, cbg6)
+cbg <- rbind(cbg, cbg3)
+
+tbl_resumen <- resumen(cbg)
+lst_campos <- cbg %>% distinct(fecha)
+lst_campos <- as.Date(lst_campos[, 1], format="%d/%m/%Y")
+save(cbg, tbl_resumen, clasificacion, lst_campos, file = "./data/datos.RData")
+
+View(cbg)
+View(tbl_resumen)

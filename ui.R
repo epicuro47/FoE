@@ -19,12 +19,12 @@ shinyUI(
             title = "Gremio Los Tercios",
             # Dropdown menu for messages
             dropdownMenu(type = "messages", badgeStatus = "success",
-                         messageItem("Support Team",
-                                     "This is the content of a message.",
+                         messageItem("Análisis",
+                                     "Datos actualizados el 9/11/2020.",
                                      time = "5 mins"
                          ),
-                         messageItem("Support Team",
-                                     "This is the content of another message.",
+                         messageItem("Análisis",
+                                     "Resultado similar a la semana anterior con 12% más de esfuerzo.",
                                      time = "2 hours"
                          ))
             ),

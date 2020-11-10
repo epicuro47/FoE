@@ -43,35 +43,38 @@ library(stringr)
 library(readr)
 library(purrr)
 
-url1 <- "https://foestats.com/es/es8/?server=es8&world=Houndsmoor"
+url_foe <- "https://foestats.com/es/es8/?server=es8&world=Houndsmoor"
 
-fechaActualizacion <- GET(url1) %>% content() %>% html_nodes("div.cellbox div") %>% 
+fechaActualizacion <- GET(url_foe) %>% content() %>% html_nodes("div.cellbox div") %>% 
     `[[`(1) %>% html_text() %>% 
     str_remove("\n                Last Updated: ") %>% 
     str_remove(" \\(EST\\)") %>% 
     parse_date(format = "%B %d, %Y %H:%M")
 
-url <- "https://foestats.com/es/es8/getPlayers.php?draw=4"
-resp <- GET(url)
+url_foedb <- "https://foestats.com/es/es8/getPlayers.php?draw=4"
+resp <- GET(url_foedb)
 http_type(resp)
 
 if(resp$status_code == 200){
     jsonRespText <- content(resp,as = "text")
-    ranking <- data.frame(fromJSON(jsonRespText)) %>% select(-(1:3))
-    colnames(ranking) <- c("clasificacion", "avatar", "jugador", "gremio", "puntos", "batallas", "gremio_id", "id", "dif_puntos")
-    gremio <- ranking %>% 
+    dataJSON <- data.frame(fromJSON(jsonRespText)) %>% select(-(1:3))
+    colnames(dataJSON) <- c("clasificacion", "avatar", "jugador", "gremio", "puntos", "batallas", "gremio_id", "id", "dif_puntos")
+    temp <- dataJSON %>% 
         filter(stringr::str_detect(gremio, 'LOS TERCIOS')) %>% 
         select(-c(gremio_id, gremio)) %>% 
         mutate_all(str_remove_all, "[:space:]") %>% 
         mutate_all(str_remove_all, ",") 
-    gremio <- gremio %>% 
+    temp <- temp %>% 
         select(-c(2, 3)) %>% 
         map_df(as.integer) %>% 
-        mutate(jugador = gremio$jugador, avatar = gremio$avatar) %>% 
+        mutate(jugador = temp$jugador, avatar = temp$avatar) %>% 
         relocate(id, jugador, avatar) %>% 
         arrange(clasificacion) %>% 
         mutate(fecha_actualizacion = fechaActualizacion,
                fecha_carga = Sys.Date())
     
+    load("./data/gremio.RData")
+    gremio <- rbind(gremio, temp)
     save(gremio, file = "./data/gremio.RData")
+    rm(url_foe, fechaActualizacion, url_foedb, resp, dataJSON, temp)
 }
